@@ -4,6 +4,10 @@ import seed from "./seed";
 
 const board = (state = { lists: [] }, action) => {
   switch (action.type) {
+    case "INITIALIZE_BOARD": {
+      const { board } = action.payload;
+      return board;
+    }
     case "ADD_LIST": {
       const { listId } = action.payload;
       return { lists: [...state.lists, listId] };
@@ -28,6 +32,10 @@ const board = (state = { lists: [] }, action) => {
 
 const listsById = (state = {}, action) => {
   switch (action.type) {
+    case "INITIALIZE_LISTS": {
+      const { listsById } = action.payload;
+      return listsById;
+    }
     case "ADD_LIST": {
       const { listId, listTitle } = action.payload;
       return {
@@ -76,6 +84,16 @@ const listsById = (state = {}, action) => {
       const [removedCard] = sourceCards.splice(oldCardIndex, 1);
       const destinationCards = Array.from(state[destListId].cards);
       destinationCards.splice(newCardIndex, 0, removedCard);
+      fetch('/api/update-truck-status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          truckId: removedCard,
+          statusId: destListId
+        })
+      });
       return {
         ...state,
         [sourceListId]: { ...state[sourceListId], cards: sourceCards },
@@ -100,12 +118,37 @@ const listsById = (state = {}, action) => {
 
 const cardsById = (state = {}, action) => {
   switch (action.type) {
+    case "INITIALIZE_CARDS": {
+      const { cardsById } = action.payload;
+      return cardsById;
+    }
     case "ADD_CARD": {
-      const { cardText, cardId } = action.payload;
+      const { cardText, cardId, listId } = action.payload;
+      fetch('/api/create-truck', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          truckId: cardId,
+          name: cardText,
+          statusId: listId
+        })
+      });
       return { ...state, [cardId]: { text: cardText, _id: cardId } };
     }
     case "CHANGE_CARD_TEXT": {
       const { cardText, cardId } = action.payload;
+      fetch('/api/update-truck-name', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          truckId: cardId,
+          name: cardText
+        })
+      });
       return { ...state, [cardId]: { ...state[cardId], text: cardText } };
     }
     case "DELETE_CARD": {

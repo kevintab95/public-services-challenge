@@ -1,16 +1,17 @@
-const express = require("express");
+const express = require('express');
 require('dotenv').config();
 
 const app = express();
 app.set('port', (process.env.PORT || 8081));
 
+app.use(express.json());
 const { createClient } = require('@supabase/supabase-js');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-app.get("/api/trucks", async (req, res) => {
+app.get('/api/trucks', async (req, res) => {
   let { data: trucks, error } = await supabase
     .from('truck')
     .select(`
@@ -18,17 +19,44 @@ app.get("/api/trucks", async (req, res) => {
       name,
       cargo,
       status (
-      name
+        id,
+        name
       )
     `);
   res.send(trucks);
 });
 
-app.get("/api/status", async (req, res) => {
+app.get('/api/status', async (req, res) => {
   let { data: statuses, error } = await supabase
     .from('status')
     .select('id, name');
   res.send(statuses);
+});
+
+app.post('/api/update-truck-status', async (req, res) => {
+  const { truckId, statusId } = req.body;
+  let { data: truck, error } = await supabase
+    .from('truck')
+    .update({ status_id: statusId })
+    .eq('id', truckId);
+  res.send(truck);
+});
+
+app.post('/api/update-truck-name', async (req, res) => {
+  const { truckId, name } = req.body;
+  let { data: truck, error } = await supabase
+    .from('truck')
+    .update({ name })
+    .eq('id', truckId);
+  res.send(truck);
+});
+
+app.post('/api/create-truck', async (req, res) => {
+  const { truckId, name, statusId } = req.body;
+  let { data: truck, error } = await supabase
+    .from('truck')
+    .insert({ id: truckId, name, status_id: statusId, cargo: 'NA' });
+  res.send(truck);
 });
 
 app.listen(app.get('port'), function() {

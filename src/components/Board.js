@@ -8,6 +8,45 @@ import List from "./List";
 import AddList from "./AddList";
 
 class Board extends Component {
+  fetchBoard = async () => {
+    const { dispatch } = this.props;
+    const response = await fetch("/api/trucks");
+    const data = await response.json();
+    const stateLists = {};
+    const stateCards = {};
+    data.forEach(truck => {
+      stateCards[truck.id] = {
+        _id: truck.id,
+        text: truck.name
+      };
+      if (!stateLists[truck.status.id]) {
+        stateLists[truck.status.id] = {
+          _id: truck.status.id,
+          title: truck.status.name,
+          cards: []
+        };
+      } else {
+        stateLists[truck.status.id].cards.push(truck.id);
+      }
+    });
+    dispatch({
+      type: "INITIALIZE_CARDS",
+      payload: { cardsById: stateCards }
+    });
+    dispatch({
+      type: "INITIALIZE_LISTS",
+      payload: { listsById: stateLists }
+    });
+    dispatch({
+      type: "INITIALIZE_BOARD",
+      payload: { board: { lists: Object.keys(stateLists) } }
+    });
+  }; 
+  
+  componentDidMount() {
+    this.fetchBoard();
+  }
+
   state = {
     addingList: false
   };
