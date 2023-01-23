@@ -11,23 +11,22 @@ class Board extends Component {
     const { dispatch } = this.props;
     const truckResponse = await fetch("/api/trucks");
     const data = await truckResponse.json();
-    const statusResponse = await fetch("/api/status");
-    const statusData = await statusResponse.json();
     const stateLists = {};
-    statusData.forEach(status => {
-      stateLists[status.id] = {
-        _id: status.id,
-        title: status.name,
-        cards: []
-      };
-    });
     const stateCards = {};
     data.forEach(truck => {
       stateCards[truck.id] = {
         _id: truck.id,
         text: truck.name
       };
-      stateLists[truck.status.id].cards.push(truck.id);
+      if (!stateLists[truck.status.id]) {
+        stateLists[truck.status.id] = {
+          _id: truck.status.id,
+          title: truck.status.name,
+          cards: [truck.id]
+        };
+      } else {
+        stateLists[truck.status.id].cards.push(truck.id);
+      }
     });
     dispatch({
       type: "INITIALIZE_CARDS",
