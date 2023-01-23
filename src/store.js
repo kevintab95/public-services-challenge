@@ -38,6 +38,16 @@ const listsById = (state = {}, action) => {
     }
     case "ADD_LIST": {
       const { listId, listTitle } = action.payload;
+      fetch('/api/create-status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: listId,
+          name: listTitle
+        })
+      });
       return {
         ...state,
         [listId]: { _id: listId, title: listTitle, cards: [] }
@@ -45,6 +55,17 @@ const listsById = (state = {}, action) => {
     }
     case "CHANGE_LIST_TITLE": {
       const { listId, listTitle } = action.payload;
+      fetch('/api/update-status-name', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          statusId: listId,
+          name: listTitle
+        })
+      });
+
       return {
         ...state,
         [listId]: { ...state[listId], title: listTitle }
@@ -103,6 +124,15 @@ const listsById = (state = {}, action) => {
     case "DELETE_CARD": {
       const { cardId: deletedCardId, listId } = action.payload;
       const filterDeleted = cardId => cardId !== deletedCardId;
+      fetch('/api/delete-truck', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          truckId: deletedCardId
+        })
+      });
       return {
         ...state,
         [listId]: {

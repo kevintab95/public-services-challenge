@@ -3,7 +3,6 @@ import "../styles/AddList.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ListEditor from "./ListEditor";
-import shortid from "shortid";
 import EditButtons from "./EditButtons";
 
 class AddList extends Component {
@@ -21,7 +20,7 @@ class AddList extends Component {
 
     dispatch({
       type: "ADD_LIST",
-      payload: { listId: shortid.generate(), listTitle: title }
+      payload: { listId: Math.floor(Math.random() * 100000), listTitle: title }
     });
   };
 

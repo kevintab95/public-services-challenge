@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import List from "./List";
-import AddList from "./AddList";
 
 class Board extends Component {
   fetchBoard = async () => {
@@ -23,7 +22,7 @@ class Board extends Component {
         stateLists[truck.status.id] = {
           _id: truck.status.id,
           title: truck.status.name,
-          cards: []
+          cards: [truck.id]
         };
       } else {
         stateLists[truck.status.id].cards.push(truck.id);
@@ -106,19 +105,6 @@ class Board extends Component {
               })}
 
               {provided.placeholder}
-
-              <div className="Add-List">
-                {addingList ? (
-                  <AddList toggleAddingList={this.toggleAddingList} />
-                ) : (
-                  <div
-                    onClick={this.toggleAddingList}
-                    className="Add-List-Button"
-                  >
-                    <ion-icon name="add" /> Add a list
-                  </div>
-                )}
-              </div>
             </div>
           )}
         </Droppable>

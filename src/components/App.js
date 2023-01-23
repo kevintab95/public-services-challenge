@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="Header">BC Truck Manager</div>
+        <div className="Header">BCM Deliveries</div>
 
         <Board />
       </div>

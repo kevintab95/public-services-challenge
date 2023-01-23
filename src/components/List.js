@@ -8,8 +8,6 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 
-import shortid from "shortid";
-
 class List extends Component {
   state = {
     editingTitle: false,
@@ -25,7 +23,7 @@ class List extends Component {
 
     this.toggleAddingCard();
 
-    const cardId = shortid.generate();
+    const cardId = Math.floor(Math.random() * 100000);
 
     dispatch({
       type: "ADD_CARD",
@@ -111,8 +109,9 @@ class List extends Component {
                       adding
                     />
                   ) : (
+                    list._id === 1 &&
                     <div className="Toggle-Add-Card" onClick={this.toggleAddingCard}>
-                      <ion-icon name="add" /> Add a card
+                      <ion-icon name="add" /> Add Delivery Truck
                     </div>
                   )}
                 </div>

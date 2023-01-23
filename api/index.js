@@ -59,6 +59,32 @@ app.post('/api/create-truck', async (req, res) => {
   res.send(truck);
 });
 
+app.post('/api/delete-truck', async (req, res) => {
+  const { truckId } = req.body;
+  let { data: truck, error } = await supabase
+    .from('truck')
+    .delete()
+    .eq('id', truckId);
+  res.send(truck);
+});
+
+app.post('/api/update-status-name', async (req, res) => {
+  const { statusId, name } = req.body;
+  let { data: status, error } = await supabase
+    .from('status')
+    .update({ name })
+    .eq('id', statusId);
+  res.send(status);
+});
+
+app.post('/api/create-status', async (req, res) => {
+  const { statusId, name } = req.body;
+  let { data: status, error } = await supabase
+    .from('status')
+    .insert({ id: statusId, name });
+  res.send(status);
+});
+
 app.listen(app.get('port'), function() {
   console.log('Express app is running on port', app.get('port'));
 });
