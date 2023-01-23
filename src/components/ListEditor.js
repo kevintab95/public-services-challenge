@@ -38,12 +38,11 @@ class ListEditor extends Component {
       <div className="List-Title-Edit" ref={this.ref}>
         <TextareaAutosize
           autoFocus
-          className="List-Title-Textarea"
+          className={`List-Title-Textarea ${deleteList ? 'List-Title-narrow' : 'List-Title-wide'}`}
           placeholder="Enter list title..."
           value={title}
           onChange={handleChangeTitle}
           onKeyDown={this.onEnter}
-          style={{ width: deleteList ? 220 : 245 }}
         />
       </div>
     );

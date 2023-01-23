@@ -6,8 +6,7 @@ const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
   <div className="Edit-Buttons">
     <div
       tabIndex="0"
-      className="Edit-Button"
-      style={{ backgroundColor: "#5aac44" }}
+      className="Edit-Button Edit-Button-Confirm"
       onClick={handleSave}
     >
       {saveLabel}
@@ -15,8 +14,7 @@ const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
     {handleDelete && (
       <div
         tabIndex="0"
-        className="Edit-Button"
-        style={{ backgroundColor: "#EA2525", marginLeft: 0 }}
+        className="Edit-Button Edit-Button-Delete"
         onClick={handleDelete}
       >
         Delete

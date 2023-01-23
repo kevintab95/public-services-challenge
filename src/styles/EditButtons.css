@@ -31,3 +31,12 @@
 .Edit-Button-Cancel:hover {
   opacity: 1;
 }
+
+.Edit-Button-Confirm {
+  background-color: #5aac44
+}
+
+.Edit-Button-Delete {
+  background-color: #EA2525;
+  margin-left: 0;
+}
