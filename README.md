@@ -21,6 +21,7 @@
 | `/api/delete-truck` | POST | Delete a truck |
 | `/api/status` | GET | Get all statuses |
 | `/api/update-status-name` | POST | Update the name of a status |
+| `/api/create-status` | POST | Create a new status |
 
 
 ### Screenshots
