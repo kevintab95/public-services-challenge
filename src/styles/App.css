@@ -1,6 +1,5 @@
-.App {
+body {
   background: rgb(75, 191, 107);
-  height: 100%;
 }
 
 .Header {
@@ -21,4 +20,12 @@
   border-radius: 5px;
   padding: 10px 10px 0 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+  .Header {
+    font-size: 20px;
+    text-align: left;
+    padding: 16px 0 10px 20px;
+  }
 }
