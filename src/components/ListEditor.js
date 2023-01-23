@@ -45,7 +45,6 @@ class ListEditor extends Component {
           onKeyDown={this.onEnter}
           style={{ width: deleteList ? 220 : 245 }}
         />
-        {/* {deleteList && <ion-icon name="trash" onClick={deleteList} />} */}
       </div>
     );
   }
