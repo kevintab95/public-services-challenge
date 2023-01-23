@@ -12,3 +12,13 @@
   font-size: 40px;
   font-weight: 200;
 }
+
+.ProfileDropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 10px 0 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}

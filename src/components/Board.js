@@ -101,7 +101,7 @@ class Board extends Component {
           {(provided, _snapshot) => (
             <div className="Board" ref={provided.innerRef}>
               {board.lists.map((listId, index) => {
-                return <List listId={listId} key={listId} index={index} />;
+                return <List edit={this.props.edit} listId={listId} key={listId} index={index} />;
               })}
 
               {provided.placeholder}

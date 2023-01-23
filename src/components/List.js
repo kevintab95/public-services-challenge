@@ -31,8 +31,11 @@ class List extends Component {
     });
   };
 
-  toggleEditingTitle = () =>
-    this.setState({ editingTitle: !this.state.editingTitle });
+  toggleEditingTitle = () => {
+    if(this.props.edit) {
+      this.setState({ editingTitle: !this.state.editingTitle });
+    }
+  };
 
   handleChangeTitle = e => this.setState({ title: e.target.value });
 
@@ -97,6 +100,7 @@ class List extends Component {
                         cardId={cardId}
                         index={index}
                         listId={list._id}
+                        edit={this.props.edit}
                       />
                     ))}
 
@@ -109,7 +113,7 @@ class List extends Component {
                       adding
                     />
                   ) : (
-                    list._id === 1 &&
+                    list._id === 1 && this.props.edit &&
                     <div className="Toggle-Add-Card" onClick={this.toggleAddingCard}>
                       <ion-icon name="add" /> Add Delivery Truck
                     </div>

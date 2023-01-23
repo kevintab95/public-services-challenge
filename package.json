@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.5",
     "lodash.throttle": "^4.1.1",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.0-beta.3",

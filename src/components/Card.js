@@ -62,7 +62,7 @@ class Card extends Component {
               onMouseEnter={this.startHover}
               onMouseLeave={this.endHover}
             >
-              {hover && (
+              {hover && this.props.edit && (
                 <div className="Card-Icons">
                   <div className="Card-Icon" onClick={this.startEditing}>
                     <ion-icon name="create" />
