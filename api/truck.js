@@ -3,7 +3,7 @@ exports.truck_api = [
     method: 'GET',
     path: 'trucks',
     callback: async (supabase, req, res) => {
-      let { data: trucks, error } = await supabase
+      let { data: trucks, trucksResponseError } = await supabase
         .from('truck')
         .select(`
           id,
@@ -14,7 +14,13 @@ exports.truck_api = [
             name
           )
         `);
-      res.send(trucks);
+      let { data: statuses, statusResponseError } = await supabase
+        .from('status')
+        .select('id, name');
+      res.send({
+        trucks,
+        statuses
+      });
     }
   },
   {
